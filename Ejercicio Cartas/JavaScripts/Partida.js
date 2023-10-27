@@ -25,6 +25,7 @@ export default class Partida{
         this._aciertos = 0;
         this._numeroIntentos = 0;
       }
+
       selecciona() {
         var i = 0;
         const cuantasVeces = (this._columnas * this._filas)-1;
@@ -41,13 +42,13 @@ export default class Partida{
           i++;
         }
       }
-      /*No funciona*/
-      baraja(){
-        function  compararAleatoriamente(){
-          return Math.random() - 0.5;
-        }
-        this._cartasSeleccionadas.sort(compararAleatoriamente());
 
+      compararAleatoriamente() {
+        return Math.random() - 0.5;
+      }
+    
+      baraja(){
+        this._cartasSeleccionadas.sort(this.compararAleatoriamente);
       }
       reparte(){
         this._mazo = new Array(this._filas);
@@ -61,10 +62,55 @@ export default class Partida{
               this._mazo[i][j] = this._cartasSeleccionadas[numero];
               numero++;
           }
+        }
+      }
+      voltea(fila,columna){
+        var ayuda = this._mazo[fila][columna];
+        this._cartaVolteada = ayuda;
+        console.log(ayuda.toString());
+        this._numeroIntentos++;
+      }
+
+      eliminarCartas(fila1,fila2,columna1,columna2){
+        if(fila1 === fila2 && columna1 === columna2){
+          console.log("Estas eligiendo la misma carta");
+        }else{
+          this._mazo[fila1][columna1] = null;
+          this._mazo[fila2][columna2] = null;
+        }
+        
+      }
+
+      compruebaAcierto(fila,columna){
+        var devolver = false;
+        if(this._mazo[fila][columna] === this._cartaVolteada){
+          devolver = true;
+          this._aciertos++;
+        }
+        return devolver;
+      }
+
+      haFinalizado(){
+        var devolver = false;
+        if(this._aciertos == this._cartasSeleccionadas.length/2){
+          devolver = true;
+        }
+        return devolver;
+      }
+
+      pintarMazo(){
+        var numero = 0;
+        for (var i = 0; i < this._mazo.length; i++) {
+          for (var j = 0; j < this._mazo[i].length; j++) {
+            console.log(this._mazo[i][j]);
+            numero++;
+            if(numero === 4) {
+              console.log("\n");
+            }
+          }
+        }
       }
       
-        console.table(this._mazo);
-      }
       get getMazo(){
         return this._mazo;
       }
