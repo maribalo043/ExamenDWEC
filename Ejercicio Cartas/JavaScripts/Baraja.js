@@ -16,7 +16,7 @@ export default class Baraja{
               this._baraja[i][j] = new Carta(nombres[i],palos[j]);
             }
         }
-      }
+      } 
       
     generaCarta(){
         var palo = Math.floor(Math.random()*4);

@@ -13,7 +13,7 @@ export default class Carta{
     set setPalo(paloNuevo){
         this._palo = paloNuevo;
     }
-    set setNombre(nombreNuevo){
+    set setNombre(nombreNuevo){ 
         this.nombre = nombreNuevo;
     }
     toString(){
